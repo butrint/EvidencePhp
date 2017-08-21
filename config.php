@@ -1,4 +1,3 @@
 <?php
-    $conn = mysqli_connect('localhost','root','','vijueshmeria') or die('Gabim ne lidhje!');  
+    $conn = new MySQLi('localhost','root','','vijueshmeria') or die('Gabim ne lidhje!');
 ?>
-
