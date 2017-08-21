@@ -1,5 +1,4 @@
 <?php
-        include "config.php";
         $name = "Butrint";
         $surname = "Rashiti";
         if(isset($_GET["id"]))
