@@ -15,10 +15,10 @@
         	$username = "evidencaproject@gmail.com";
 	        $mailPassword = "Jimmy123";
 
-	        $recipients = 'joe@example.com';
+	        $recipients = 'evidencaproject@gmail.com';
 
 
-	        $from     = 'richard@example.com';
+	        $from     = 'evidenca@noreply.com';
         	$to       = 'rashiti.butrint@gmail.com';
 	        $subject  = 'Evidenca';
 
