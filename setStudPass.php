@@ -2,11 +2,8 @@
 	include "./config.php";
 	include "./funksionet.php";
 	
-	echo "fillim";
-	
 	if(isset($_GET["id"]) && isset($_GET["email"]))
 	{
-		echo "isset";
 		$num_id = $_GET["id"];
 		$email = $_GET["email"];
 		
