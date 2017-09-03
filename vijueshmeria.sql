@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 17, 2017 at 11:33 AM
+-- Generation Time: Sep 03, 2017 at 10:34 PM
 -- Server version: 5.6.24
 -- PHP Version: 5.6.8
 
@@ -149,14 +149,14 @@ CREATE TABLE IF NOT EXISTS `devicereg` (
   `device2` varchar(50) DEFAULT NULL,
   `device3` varchar(50) DEFAULT NULL,
   `password` varchar(125) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `devicereg`
 --
 
 INSERT INTO `devicereg` (`devicereg_id`, `device1`, `device2`, `device3`, `password`) VALUES
-(2, 'fe984f036252c6cb', NULL, NULL, 'fcea920f7412b5da7be0cf42b8c93759');
+(1, '123333', NULL, NULL, '33333');
 
 -- --------------------------------------------------------
 
@@ -322,6 +322,7 @@ CREATE TABLE IF NOT EXISTS `students` (
   `surname` varchar(25) NOT NULL,
   `email` varchar(100) DEFAULT NULL,
   `birthday` date NOT NULL,
+  `hash` varchar(128) DEFAULT NULL COMMENT 'login hash',
   `devicereg_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
 
@@ -329,16 +330,16 @@ CREATE TABLE IF NOT EXISTS `students` (
 -- Dumping data for table `students`
 --
 
-INSERT INTO `students` (`student_id`, `num_id`, `name`, `surname`, `email`, `birthday`, `devicereg_id`) VALUES
-(1, '13', 'Butrint', 'Rashiti', 'rashiti.butrint@gmail.com', '1996-07-06', 2),
-(2, '222222', 'Yllka', 'Emini', 'yllkaaemini@gmail.com', '1996-05-19', NULL),
-(3, '12345678', 'Eda', 'Agushi', 'edaagushi@gmail.com', '1996-12-10', NULL),
-(5, '1111', 'Jeton', 'Selimi', 'Jeton@gmail.com', '1982-06-07', NULL),
-(8, '22211', 'Yllka', 'Emini', 'yllkaaemini@gmail.com', '1996-05-19', NULL),
-(15, '2221111', 'Yllka', 'Emini', 'yllkaaemini@gmail.com', '1996-05-19', NULL),
-(17, '113', 'Butrinti', 'Rashitis', 'rashiti.butrint@gmail.com', '1996-06-06', NULL),
-(18, '1234567813', 'Eda', 'Agushi', 'edaagushi@gmail.com', '1996-12-10', NULL),
-(19, '12312', 'asdsadas', 'sadsa', 'dsadsasda', '2017-12-13', NULL);
+INSERT INTO `students` (`student_id`, `num_id`, `name`, `surname`, `email`, `birthday`, `hash`, `devicereg_id`) VALUES
+(1, '13', 'Butrint', 'Rashiti', 'rashiti.butrint@gmail.com', '1996-07-06', '123', 1),
+(2, '222222', 'Yllka', 'Emini', 'yllkaaemini@gmail.com', '1996-05-19', '', NULL),
+(3, '12345678', 'Eda', 'Agushi', 'edaagushi@gmail.com', '1996-12-10', '', NULL),
+(5, '1111', 'Jeton', 'Selimi', 'Jeton@gmail.com', '1982-06-07', '', NULL),
+(8, '22211', 'Yllka', 'Emini', 'yllkaaemini@gmail.com', '1996-05-19', '', NULL),
+(15, '2221111', 'Yllka', 'Emini', 'yllkaaemini@gmail.com', '1996-05-19', '', NULL),
+(17, '113', 'Butrinti', 'Rashitis', 'rashiti.butrint@gmail.com', '1996-06-06', '', NULL),
+(18, '1234567813', 'Eda', 'Agushi', 'edaagushi@gmail.com', '1996-12-10', '', NULL),
+(19, '12312', 'asdsadas', 'sadsa', 'dsadsasda', '2017-12-13', '', NULL);
 
 -- --------------------------------------------------------
 
@@ -468,7 +469,7 @@ ALTER TABLE `departments`
 -- Indexes for table `devicereg`
 --
 ALTER TABLE `devicereg`
-  ADD PRIMARY KEY (`devicereg_id`);
+  ADD PRIMARY KEY (`devicereg_id`), ADD UNIQUE KEY `device1` (`device1`), ADD UNIQUE KEY `device2` (`device2`), ADD UNIQUE KEY `device3` (`device3`);
 
 --
 -- Indexes for table `evidence`
@@ -522,7 +523,7 @@ ALTER TABLE `scheduler`
 -- Indexes for table `students`
 --
 ALTER TABLE `students`
-  ADD PRIMARY KEY (`student_id`), ADD KEY `fk_students_devicereg` (`devicereg_id`);
+  ADD PRIMARY KEY (`student_id`), ADD UNIQUE KEY `num_id` (`num_id`), ADD KEY `fk_students_devicereg` (`devicereg_id`);
 
 --
 -- Indexes for table `subjects`
@@ -561,7 +562,7 @@ ALTER TABLE `departments`
 -- AUTO_INCREMENT for table `devicereg`
 --
 ALTER TABLE `devicereg`
-  MODIFY `devicereg_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+  MODIFY `devicereg_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `evidence`
 --

@@ -7,7 +7,7 @@
 		$id="";
 		$sql = "INSERT INTO ".$table." VALUES(".$values.");";
 		$result = $conn->query($sql);
-		if($result === true)
+		if($result == true)
 		{
 			$id = mysqli_insert_id($conn);
 			return $id;
@@ -20,7 +20,6 @@
 
 	function updateDbs($conn, $table, $set, $additional="")
 	{
-		$sql = 
 		$sql = "";
 		if($additional != "")
 			$sql = "UPDATE ".$table." SET ".$set." ".$additional."";
@@ -28,18 +27,19 @@
 			$sql = "UPDATE ".$table." SET ".$set."";
 		
 		$result = $conn->query($sql);
-		if(($result === true) && (mysqli_num_rows($result) > 0))
+		if(($result == true) && (mysqli_affected_rows($conn) > 0))
 		{
-			return "Record updated successfully";	
+			return true;	
 		}
 		else
 		{
-			return "Error: " . $sql . "<br>" . $conn->error;
+			return false;
+			//return "Error: " . $sql . "<br>" . $conn->error;
 		}
 	}
 
-	// Kthen array te dyfisht ($res[0]['name']) sepse rezultatet mund te ken me shum se 1 rresht
-	function selectFromDbs($conn, $table, $select, $additional="")
+	// Kthen array te dyfisht ($res[0]['name']) nese listarray false esle ($res[0][0]) sepse rezultatet mund te ken me shum se 1 rresht
+	function selectFromDbs($conn, $table, $select, $additional="", $listArray=false)
 	{
 		$sql = "";
 		if($additional != "")
@@ -48,13 +48,18 @@
 			$sql = "SELECT ".$select." FROM ".$table."";
 		$result = $conn->query($sql);
 		
-		if(($result === true) && (mysqli_num_rows($result) > 0))
+		if(($result == true) && (mysqli_num_rows($result) > 0))
 		{
 			$res = array();
-			while($row = mysqli_fetch_assoc($result))
-			{
-				$res[] = $row;
-			}
+			
+			if(!$listArray)
+				while($row = mysqli_fetch_assoc($result))
+					$res[] = $row;
+			else
+				while($row = mysqli_fetch_array($result))
+					$res[] = $row;
+			
+			mysqli_free_result($result);
 			return $res;
 		}
 		else
@@ -62,7 +67,8 @@
 			// Kthen false nese nuk ka affected rows
 			if((mysqli_num_rows($result) == 0))
 				return false;
-			return "Error: " . $sql . "<br>" . $conn->error;
+			// Kthen error nese nuk u konektu mire
+			echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 		}
 	}
 	
