@@ -2,7 +2,11 @@
 	include "./config.php";
 	include "./funksionet.php";
 	
-
+	if(isset($_POST["some"]))
+	{
+		echo json_encode(["message" => "asdsadsdadsa", $_POST["koko"]]);
+		return json_encode("some", 200);
+	}
 	if(isset($_POST["submit"]))
 	{
 		$device = $_POST["device"];
@@ -12,7 +16,7 @@
 		$select = "`student_id`";
 		$additional = "WHERE `hash`='".$hashi."' LIMIT 1";
 		$res = selectFromDbs($conn, $table, $select, $additional);
-		
+
 		if(is_array($res))
 		{
 			$stud_id = $res[0]["student_id"];
@@ -43,24 +47,33 @@
 						$res = updateDbs($conn, $table, $set, $additional);
 						if($res)
 						{
-							return json_encode(["message"=>"Pajisja juaj u regjistrua me sukses!"]);
+							echo json_encode(["message"=>"Pajisja juaj u regjistrua me sukses!", "isTrue" => true]);
+							return true;
 						}
 						else
 						{
-							return json_encode(["error"=>"Problem me lidhje"]);
+							echo json_encode(["message"=>"Problem me lidhje", "isTrue"=>false]);
+							return false;
 						}
 					}
 					else
-						return json_encode(["warning" => "Nuk ka vend ku te regjistrohet pajisja.", "Cause" => "3 pajisje eshte maksimumi per nje student.", "Soulution" => "Ju lutem kontaktoni administratorin."]);
+					{
+						echo json_encode(["message" => "Nuk ka vend ku te regjistrohet pajisja.", "Cause" => "3 pajisje eshte maksimumi per nje student.", "Soulution" => "Ju lutem kontaktoni administratorin.", "isTrue"=>false]);
+						return false;
+					}
 				}
 			}
 			else
 			{
-				return json_encode("");
+				echo json_encode("isTrue"=>false);
+				return false;
 					
 			}
 		}
 		else
+		{
+			echo json_encode("isTrue"=>false);
 			return false;
+		}
 	}
 ?>

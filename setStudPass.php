@@ -45,7 +45,10 @@
 				}
 			}
 			else
+			{
+				echo "Studenti/ja eshte regjistruar tashme deshironi te dergojme nje fjalekalim te ri?";
 				return "Studenti/ja eshte regjistruar tashme deshironi te dergojme nje fjalekalim te ri?";
+			}
 			
 		}
 		else
