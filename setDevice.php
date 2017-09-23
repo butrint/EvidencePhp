@@ -2,11 +2,6 @@
 	include "./config.php";
 	include "./funksionet.php";
 	
-	if(isset($_POST["some"]))
-	{
-		echo json_encode(["message" => "asdsadsdadsa", $_POST["koko"]]);
-		return json_encode("some", 200);
-	}
 	if(isset($_POST["submit"]))
 	{
 		$device = $_POST["device"];
@@ -26,7 +21,7 @@
 			$additional = "WHERE `device1`='".$device."' OR `device2`='".$device."' OR `device3`='".$device."'";
 			$res = selectFromDbs($conn, $table, $select, $additional);
 			
-			if($res === false)
+			if($res == false)
 			{
 				// Shkak per kete eshte qe me dite nese jan te regjistruara 3 pajisjet e mundshme nga studentet
 				// Kthen device me vler device1 ose device2 ose device3 nese naj njona o null perndryshe kthen device me vler null
@@ -65,14 +60,13 @@
 			}
 			else
 			{
-				echo json_encode("isTrue"=>false);
+				echo json_encode(["isTrue"=>false, "message"=>"Pajisja juaj eshte e regjistruar"]);
 				return false;
-					
 			}
 		}
 		else
 		{
-			echo json_encode("isTrue"=>false);
+			echo json_encode(["isTrue"=>false,"message" => "Error 404"]);
 			return false;
 		}
 	}

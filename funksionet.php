@@ -46,8 +46,8 @@
 			$sql = "SELECT ".$select." FROM ".$table." ".$additional."";
 		else
 			$sql = "SELECT ".$select." FROM ".$table."";
+
 		$result = $conn->query($sql);
-		
 		if(($result == true) && (mysqli_num_rows($result) > 0))
 		{
 			$res = array();
@@ -68,7 +68,7 @@
 			if((mysqli_num_rows($result) == 0))
 				return false;
 			// Kthen error nese nuk u konektu mire
-			echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+			return "Error: " . $sql . "<br>" . mysqli_error($conn);
 		}
 	}
 	

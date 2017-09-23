@@ -47,7 +47,7 @@
 			else
 			{
 				echo "Studenti/ja eshte regjistruar tashme deshironi te dergojme nje fjalekalim te ri?";
-				return "Studenti/ja eshte regjistruar tashme deshironi te dergojme nje fjalekalim te ri?";
+				return false;
 			}
 			
 		}
@@ -55,6 +55,7 @@
 		{
 			// Can be a problem with connection to database or doesn't have data
 			echo "Lidhja nuk mund te behet ose nuk ka te dhena";
+			return false;
 		}
   	}
 	
